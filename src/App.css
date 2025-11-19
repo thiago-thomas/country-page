@@ -1,4 +1,4 @@
-#root {
+:root {
   --black-primary: #1c1d1f;
   --black-secondary: #282b30;
   --blue-primary: #4e80ee;
@@ -6,9 +6,112 @@
   --gray-secondary: #d2d5da;
 }
 
+html {
+  font-size: 14px;
+}
+
 body {
-  background-color: #1c1d1f;
-  color: #d2d5da;
+  background-color: var(--black-primary);
+  color: var(--gray-secondary);
 
   margin: 0;
+}
+
+.app__search-input,
+.app__select-input {
+  font-size: 1rem;
+  padding: 12px;
+  border-radius: 12px;
+  width: 100%;
+  box-sizing: border-box;
+  color: white;
+}
+
+.app__input-container {
+  margin-bottom: 24px;
+  & > label {
+    display: inline-block;
+    margin-bottom: 8px;
+  }
+}
+
+.app__search-input {
+  background-color: var(--black-secondary);
+
+  border: none;
+  padding-left: 40px;
+  position: relative;
+  display: block;
+
+  background-image: url('./assets/Search.svg');
+  background-repeat: no-repeat;
+  background-position: left 8px center;
+}
+
+.app__select-input {
+  -webkit-appearance: none;
+  appearance: none; /* remove estilo padrão */
+
+  cursor: pointer;
+  border: 2px solid var(--black-secondary);
+
+  background: url('./assets/Expand_down.svg');
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-color: transparent;
+}
+
+.app__region-container {
+  display: flex;
+  gap: 8px;
+}
+
+.app__region-container--buttons {
+  background-color: transparent;
+  color: white;
+  padding: 12px;
+  border: none;
+  border-radius: 12px;
+
+  &.active {
+    background-color: var(--black-secondary);
+  }
+}
+
+.app__status-container {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  & label,
+  & input {
+    cursor: pointer;
+  }
+}
+
+.app__status-container--checkbox {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+
+  & input[type='checkbox'] {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 2px;
+    background-color: transparent;
+    border: 1px solid var(--gray-secondary);
+    outline: none;
+    transition:
+      background-color 150ms ease,
+      border-color 150ms ease;
+  }
+
+  & input[type='checkbox']:checked {
+    background-color: var(--blue-primary);
+    border-color: var(--blue-primary);
+    background-image: url('./assets/Done_round.svg');
+    background-repeat: no-repeat;
+    background-position: center;
+  }
 }

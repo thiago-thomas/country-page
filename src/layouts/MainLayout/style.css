@@ -23,9 +23,7 @@ main.layout__main {
 
   padding: 16px;
 
-  background-color: var(--black-secondary);
-  border: 2px solid #393b3f;
+  background-color: var(--black-primary);
+  border: 1px solid #393b3f;
   border-radius: 8px;
-
-  height: 300px;
 }

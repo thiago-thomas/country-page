@@ -4,7 +4,55 @@ import { MainLayout as Layout } from './layouts/MainLayout';
 function App() {
   return (
     <Layout>
-      <div>Country page</div>
+      <h2>Found 234 countries</h2>
+      <div className="app__input-container">
+        <input type="text" className="app__search-input" placeholder="Search by Name, Region" />
+      </div>
+
+      <div className="app__input-container">
+        <label htmlFor="population">Sort by</label>
+        <select name="population" id="population" className="app__select-input">
+          <option value="#">Population</option>
+        </select>
+      </div>
+
+      <div className="app__input-container">
+        <label>Region</label>
+        <div className="app__region-container">
+          <button type="button" className="app__region-container--buttons active">
+            Americas
+          </button>
+          <button type="button" className="app__region-container--buttons active">
+            Antartic
+          </button>
+          <button type="button" className="app__region-container--buttons active">
+            Africa
+          </button>
+          <button type="button" className="app__region-container--buttons active">
+            Asia
+          </button>
+          <button type="button" className="app__region-container--buttons active">
+            Europe
+          </button>
+          <button type="button" className="app__region-container--buttons active">
+            Oceania
+          </button>
+        </div>
+      </div>
+
+      <div className="app__input-container">
+        <label>Status</label>
+        <div className="app__status-container">
+          <div className="app__status-container--checkbox">
+            <input type="checkbox" id="UnitedNations" title="Member of the United Nations" />
+            <label htmlFor="UnitedNations">Member of the United Nations</label>
+          </div>
+          <div className="app__status-container--checkbox">
+            <input type="checkbox" id="Independent" title="Independent" />
+            <label htmlFor="Independent">Independent</label>
+          </div>
+        </div>
+      </div>
     </Layout>
   );
 }
