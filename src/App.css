@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
 :root {
   --black-primary: #1c1d1f;
   --black-secondary: #282b30;
@@ -17,6 +19,22 @@ body {
   margin: 0;
 }
 
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+span,
+label,
+a,
+button,
+input {
+  font-family: 'Be Vietnam Pro', sans-serif;
+}
+
+
 .app__search-input,
 .app__select-input {
   font-size: 1rem;
@@ -29,7 +47,12 @@ body {
 
 .app__input-container {
   margin-bottom: 24px;
+  &:last-of-type {
+    margin-bottom: 16px;
+  }
   & > label {
+    font-weight: 500;
+    color: var(--gray-secondary);
     display: inline-block;
     margin-bottom: 8px;
   }
@@ -81,7 +104,7 @@ body {
 .app__status-container {
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  gap: 8px;
   & label,
   & input {
     cursor: pointer;
@@ -113,5 +136,36 @@ body {
     background-image: url('./assets/Done_round.svg');
     background-repeat: no-repeat;
     background-position: center;
+  }
+}
+
+table.app__country-grid-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  width: 100%;
+  border-collapse: separate;
+
+  & > thead,
+  & > tbody,
+  & tr {
+    display: contents;
+  }
+
+  & th,
+  & td {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 12px;
+  }
+
+  & th {
+    font-weight: 500;
+    color: var(--gray-secondary);
+    border-bottom: 1px solid #393b3f;
+  }
+
+  & td {
+    font-size: 1.2rem;
   }
 }

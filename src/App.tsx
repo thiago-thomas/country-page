@@ -53,6 +53,55 @@ function App() {
           </div>
         </div>
       </div>
+
+      <table className="app__country-grid-container">
+        <thead>
+          <tr>
+            <th>
+              <span>Flag</span>
+            </th>
+            <th>
+              <span>Name</span>
+            </th>
+            <th>
+              <span>Population</span>
+            </th>
+            <th>
+              <span>Area (km²)</span>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <img src="./src/assets/react.svg" alt="Country image" />
+            </td>
+            <td>
+              <span>United States</span>
+            </td>
+            <td>
+              <span>329,484,123</span>
+            </td>
+            <td>
+              <span>9,372,961</span>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <img src="./src/assets/react.svg" alt="Country image" />
+            </td>
+            <td>
+              <span>Brazil</span>
+            </td>
+            <td>
+              <span>250,000,000</span>
+            </td>
+            <td>
+              <span>10,372,961</span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </Layout>
   );
 }
