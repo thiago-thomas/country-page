@@ -1,7 +1,38 @@
+import { useEffect, useState } from 'react';
 import './App.css';
 import { MainLayout as Layout } from './layouts/MainLayout';
+import { fetchCountriesByPopulation } from './services/api';
+
+interface Country {
+  name: {
+    common: string;
+    official: string;
+  };
+  population: number;
+  area: number;
+  region: string;
+  independent: boolean;
+  unMember: boolean;
+  flag: string; // emoji
+}
 
 function App() {
+  const [countries, setCountries] = useState<Country[]>([]);
+  const [search, setSearch] = useState('');
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const data = await fetchCountriesByPopulation();
+        console.log(data);
+      } catch (err) {
+        console.error(err);
+      }
+    }
+
+    fetchData();
+  }, []);
+
   return (
     <Layout>
       <h2>Found 234 countries</h2>
