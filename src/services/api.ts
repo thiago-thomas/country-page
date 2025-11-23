@@ -9,7 +9,9 @@ export async function fetchCountriesByPopulation() {
       throw new Error(`Error on requesting data: ${res.status}`);
     }
 
-    return await res.json();
+    const data = await res.json();
+    return data;
+
   } catch (error) {
     throw new Error(`An error occurred: ${error}`);
   }

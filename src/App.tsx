@@ -2,29 +2,17 @@ import { useEffect, useState } from 'react';
 import './App.css';
 import { MainLayout as Layout } from './layouts/MainLayout';
 import { fetchCountriesByPopulation } from './services/api';
-
-interface Country {
-  name: {
-    common: string;
-    official: string;
-  };
-  population: number;
-  area: number;
-  region: string;
-  independent: boolean;
-  unMember: boolean;
-  flag: string; // emoji
-}
+import type { Country } from './types/api';
 
 function App() {
   const [countries, setCountries] = useState<Country[]>([]);
-  const [search, setSearch] = useState('');
+  //const [search, setSearch] = useState('');
 
   useEffect(() => {
     async function fetchData() {
       try {
-        const data = await fetchCountriesByPopulation();
-        console.log(data);
+        const countriesData: Country[] = await fetchCountriesByPopulation();
+        setCountries(countriesData);
       } catch (err) {
         console.error(err);
       }
@@ -35,7 +23,7 @@ function App() {
 
   return (
     <Layout>
-      <h2>Found 234 countries</h2>
+      <h2>Found {countries.length} countries</h2>
       <div className="app__input-container">
         <input type="text" className="app__search-input" placeholder="Search by Name, Region" />
       </div>
@@ -95,7 +83,7 @@ function App() {
               <span>Name</span>
             </th>
             <th>
-              <span>Population</span>
+              <span>Capital</span>
             </th>
             <th>
               <span>Area (km²)</span>
@@ -103,34 +91,22 @@ function App() {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>
-              <img src="./src/assets/react.svg" alt="Country image" />
-            </td>
-            <td>
-              <span>United States</span>
-            </td>
-            <td>
-              <span>329,484,123</span>
-            </td>
-            <td>
-              <span>9,372,961</span>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <img src="./src/assets/react.svg" alt="Country image" />
-            </td>
-            <td>
-              <span>Brazil</span>
-            </td>
-            <td>
-              <span>250,000,000</span>
-            </td>
-            <td>
-              <span>10,372,961</span>
-            </td>
-          </tr>
+          {countries.map(country => (
+            <tr>
+              <td>
+                <img src={`https://flagcdn.com/w80/${country.cca2.toLowerCase()}.png`} alt={`Flag of ${country.name.common}`} />
+              </td>
+              <td>
+                <span>{country.name.common}</span>
+              </td>
+              <td>
+                <span>{country.capital[0]}</span>
+              </td>
+              <td>
+                <span>{country.area}</span>
+              </td>
+            </tr>
+          ))}
         </tbody>
       </table>
     </Layout>
