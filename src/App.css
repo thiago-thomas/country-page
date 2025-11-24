@@ -94,6 +94,7 @@ input {
   padding: 12px;
   border: none;
   border-radius: 12px;
+  cursor: pointer;
 
   &.active {
     background-color: var(--black-secondary);

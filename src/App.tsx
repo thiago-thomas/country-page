@@ -7,12 +7,18 @@ import type { Country } from './types/api';
 function App() {
   const [countries, setCountries] = useState<Country[]>([]);
   //const [search, setSearch] = useState('');
+  
+  const [filteredCountries, setfilteredCountries] = useState<Country[]>([]);
+  const [selectedRegions, setSelectedRegions] = useState<string[]>([]);
+
+  const regions = ['Americas', 'Antarctic', 'Africa', 'Asia', 'Europe', 'Oceania'];
 
   useEffect(() => {
     async function fetchData() {
       try {
-        const countriesData: Country[] = await fetchCountriesByPopulation();
+        const countriesData = await fetchCountriesByPopulation();
         setCountries(countriesData);
+        setfilteredCountries(countriesData);
       } catch (err) {
         console.error(err);
       }
@@ -21,9 +27,27 @@ function App() {
     fetchData();
   }, []);
 
+  useEffect(() => {
+    if(selectedRegions.length > 0) {
+      setfilteredCountries(countries.filter(country => selectedRegions.includes(country.region)))
+    } else {
+      setfilteredCountries(countries)
+    }
+  },[selectedRegions])
+
+  function handleRegionChange(region: string) {
+    setSelectedRegions(prev => {
+      if (prev.includes(region)) {
+        return prev.filter(selReg => selReg !== region);
+      } else {
+        return [...prev, region];
+      }
+    });
+  }
+
   return (
     <Layout>
-      <h2>Found {countries.length} countries</h2>
+      <h2>Found {filteredCountries.length} countries</h2>
       <div className="app__input-container">
         <input type="text" className="app__search-input" placeholder="Search by Name, Region" />
       </div>
@@ -38,24 +62,16 @@ function App() {
       <div className="app__input-container">
         <label>Region</label>
         <div className="app__region-container">
-          <button type="button" className="app__region-container--buttons active">
-            Americas
-          </button>
-          <button type="button" className="app__region-container--buttons active">
-            Antartic
-          </button>
-          <button type="button" className="app__region-container--buttons active">
-            Africa
-          </button>
-          <button type="button" className="app__region-container--buttons active">
-            Asia
-          </button>
-          <button type="button" className="app__region-container--buttons active">
-            Europe
-          </button>
-          <button type="button" className="app__region-container--buttons active">
-            Oceania
-          </button>
+          {regions.map(region => (
+            <button
+              key={region}
+              type="button"
+              className={`app__region-container--buttons ${selectedRegions.includes(region) ? 'active' : ''}`}
+              onClick={() => handleRegionChange(region)}
+            >
+              {region}
+            </button>
+          ))}
         </div>
       </div>
 
@@ -91,10 +107,13 @@ function App() {
           </tr>
         </thead>
         <tbody>
-          {countries.map(country => (
+          {filteredCountries.map(country => (
             <tr>
               <td>
-                <img src={`https://flagcdn.com/w80/${country.cca2.toLowerCase()}.png`} alt={`Flag of ${country.name.common}`} />
+                <img
+                  src={`https://flagcdn.com/w80/${country.cca2.toLowerCase()}.png`}
+                  alt={`Flag of ${country.name.common}`}
+                />
               </td>
               <td>
                 <span>{country.name.common}</span>
