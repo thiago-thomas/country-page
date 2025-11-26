@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import './App.css';
 import { MainLayout as Layout } from './layouts/MainLayout';
 import { fetchCountriesByPopulation } from './services/api';
@@ -8,8 +8,8 @@ function App() {
   const [countries, setCountries] = useState<Country[]>([]);
   //const [search, setSearch] = useState('');
   
-  const [filteredCountries, setfilteredCountries] = useState<Country[]>([]);
   const [selectedRegions, setSelectedRegions] = useState<string[]>([]);
+  const [sort, setSort] = useState('name');
 
   const regions = ['Americas', 'Antarctic', 'Africa', 'Asia', 'Europe', 'Oceania'];
 
@@ -18,7 +18,6 @@ function App() {
       try {
         const countriesData = await fetchCountriesByPopulation();
         setCountries(countriesData);
-        setfilteredCountries(countriesData);
       } catch (err) {
         console.error(err);
       }
@@ -26,15 +25,7 @@ function App() {
 
     fetchData();
   }, []);
-
-  useEffect(() => {
-    if(selectedRegions.length > 0) {
-      setfilteredCountries(countries.filter(country => selectedRegions.includes(country.region)))
-    } else {
-      setfilteredCountries(countries)
-    }
-  },[selectedRegions])
-
+  
   function handleRegionChange(region: string) {
     setSelectedRegions(prev => {
       if (prev.includes(region)) {
@@ -44,6 +35,30 @@ function App() {
       }
     });
   }
+  
+  const filteredCountries = useMemo(() => {
+    let ctriesFiltd = [...countries];
+    
+    if(selectedRegions.length > 0) {
+      ctriesFiltd = countries.filter(country => selectedRegions.includes(country.region))
+    }
+
+    ctriesFiltd.sort((a,b) => {
+      switch (sort) {
+        case 'name':
+          return a.name.common.localeCompare(b.name.common);
+        case 'capital':
+          return (a.capital?.[0] || '').localeCompare(b.capital?.[0] || '');
+        case 'area':
+          return a.area - b.area;
+        default:
+          return 0;
+      }
+    });
+
+    return ctriesFiltd;
+  }, [countries, selectedRegions, sort])
+
 
   return (
     <Layout>
@@ -54,8 +69,10 @@ function App() {
 
       <div className="app__input-container">
         <label htmlFor="population">Sort by</label>
-        <select name="population" id="population" className="app__select-input">
-          <option value="#">Population</option>
+        <select name="population" id="population" className="app__select-input" onChange={e => setSort(e.target.value)}>
+          <option value="name">Name</option>
+          <option value="capital">Capital</option>
+          <option value="area">Area</option>
         </select>
       </div>
 
@@ -119,7 +136,7 @@ function App() {
                 <span>{country.name.common}</span>
               </td>
               <td>
-                <span>{country.capital[0]}</span>
+                <span>{country.capital?.[0] || '(no capital)'}</span>
               </td>
               <td>
                 <span>{country.area}</span>
