@@ -80,7 +80,7 @@ input {
   background: url('./assets/Expand_down.svg');
   background-repeat: no-repeat;
   background-position: right 12px center;
-  background-color: transparent;
+  background-color: var(--black-primary);
 }
 
 .app__region-container {

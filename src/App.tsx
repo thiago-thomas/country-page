@@ -7,9 +7,13 @@ import type { Country } from './types/api';
 function App() {
   const [countries, setCountries] = useState<Country[]>([]);
   //const [search, setSearch] = useState('');
-  
-  const [selectedRegions, setSelectedRegions] = useState<string[]>([]);
+
   const [sort, setSort] = useState('name');
+  const [selectedRegions, setSelectedRegions] = useState<string[]>([]);
+  const [status, setStatus] = useState({
+    unMember: false,
+    independent: false,
+  });
 
   const regions = ['Americas', 'Antarctic', 'Africa', 'Asia', 'Europe', 'Oceania'];
 
@@ -25,7 +29,7 @@ function App() {
 
     fetchData();
   }, []);
-  
+
   function handleRegionChange(region: string) {
     setSelectedRegions(prev => {
       if (prev.includes(region)) {
@@ -35,15 +39,31 @@ function App() {
       }
     });
   }
-  
+
+  function handleStatusChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const { id, checked } = e.target;
+    setStatus(prev => ({
+      ...prev,
+      [id === 'UnitedNations' ? 'unMember' : 'independent']: checked,
+    }));
+  }
+
   const filteredCountries = useMemo(() => {
     let ctriesFiltd = [...countries];
-    
-    if(selectedRegions.length > 0) {
-      ctriesFiltd = countries.filter(country => selectedRegions.includes(country.region))
+
+    if (selectedRegions.length > 0) {
+      ctriesFiltd = ctriesFiltd.filter(country => selectedRegions.includes(country.region));
     }
 
-    ctriesFiltd.sort((a,b) => {
+    if (status.unMember) {
+      ctriesFiltd = ctriesFiltd.filter(country => country.unMember);
+    }
+
+    if (status.independent) {
+      ctriesFiltd = ctriesFiltd.filter(country => country.independent);
+    }
+
+    ctriesFiltd.sort((a, b) => {
       switch (sort) {
         case 'name':
           return a.name.common.localeCompare(b.name.common);
@@ -57,8 +77,7 @@ function App() {
     });
 
     return ctriesFiltd;
-  }, [countries, selectedRegions, sort])
-
+  }, [countries, selectedRegions, sort, status]);
 
   return (
     <Layout>
@@ -69,7 +88,12 @@ function App() {
 
       <div className="app__input-container">
         <label htmlFor="population">Sort by</label>
-        <select name="population" id="population" className="app__select-input" onChange={e => setSort(e.target.value)}>
+        <select
+          name="population"
+          id="population"
+          className="app__select-input"
+          onChange={e => setSort(e.target.value)}
+        >
           <option value="name">Name</option>
           <option value="capital">Capital</option>
           <option value="area">Area</option>
@@ -96,11 +120,23 @@ function App() {
         <label>Status</label>
         <div className="app__status-container">
           <div className="app__status-container--checkbox">
-            <input type="checkbox" id="UnitedNations" title="Member of the United Nations" />
+            <input
+              type="checkbox"
+              id="UnitedNations"
+              title="Member of the United Nations"
+              checked={status.unMember}
+              onChange={handleStatusChange}
+            />
             <label htmlFor="UnitedNations">Member of the United Nations</label>
           </div>
           <div className="app__status-container--checkbox">
-            <input type="checkbox" id="Independent" title="Independent" />
+            <input
+              type="checkbox"
+              id="Independent"
+              title="Independent"
+              checked={status.independent}
+              onChange={handleStatusChange}
+            />
             <label htmlFor="Independent">Independent</label>
           </div>
         </div>
