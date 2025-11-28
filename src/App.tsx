@@ -6,8 +6,8 @@ import type { Country } from './types/api';
 
 function App() {
   const [countries, setCountries] = useState<Country[]>([]);
-  //const [search, setSearch] = useState('');
 
+  const [search, setSearch] = useState('');
   const [sort, setSort] = useState('name');
   const [selectedRegions, setSelectedRegions] = useState<string[]>([]);
   const [status, setStatus] = useState({
@@ -51,6 +51,15 @@ function App() {
   const filteredCountries = useMemo(() => {
     let ctriesFiltd = [...countries];
 
+    if (status) {
+      const lowerCaseSearch = search.toLowerCase();
+      ctriesFiltd = ctriesFiltd.filter(
+        country =>
+          country.name.common.toLowerCase().includes(lowerCaseSearch) ||
+          country.capital[0]?.toLowerCase().includes(lowerCaseSearch),
+      );
+    }
+
     if (selectedRegions.length > 0) {
       ctriesFiltd = ctriesFiltd.filter(country => selectedRegions.includes(country.region));
     }
@@ -77,13 +86,18 @@ function App() {
     });
 
     return ctriesFiltd;
-  }, [countries, selectedRegions, sort, status]);
+  }, [countries, selectedRegions, sort, status, search]);
 
   return (
     <Layout>
       <h2>Found {filteredCountries.length} countries</h2>
       <div className="app__input-container">
-        <input type="text" className="app__search-input" placeholder="Search by Name, Region" />
+        <input
+          type="text"
+          className="app__search-input"
+          placeholder="Search by Name, Capital"
+          onChange={e => setSearch(e.target.value)}
+        />
       </div>
 
       <div className="app__input-container">
