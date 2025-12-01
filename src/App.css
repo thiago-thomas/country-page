@@ -85,6 +85,7 @@ input {
 
 .app__region-container {
   display: flex;
+  flex-wrap: wrap;
   gap: 8px;
 }
 
@@ -167,5 +168,34 @@ table.app__country-grid-container {
 
   & td {
     font-size: 1.2rem;
+  }
+
+  .region-col {
+    display: none;
+  }
+}
+
+@media (min-width: 1024px) {
+  .header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+  }
+
+  .grid-main-container {
+    display: grid;
+    grid-template-columns: 270px 1fr;
+    gap: 32px;
+  }
+}
+
+@media (min-width: 1280px) {
+  table.app__country-grid-container {
+    grid-template-columns: repeat(5, 1fr);
+
+    .region-col {
+      display: flex;
+    }
   }
 }
