@@ -79,7 +79,7 @@ function App() {
         case 'capital':
           return (a.capital?.[0] || '').localeCompare(b.capital?.[0] || '');
         case 'area':
-          return a.area - b.area;
+          return b.area - a.area;
         default:
           return 0;
       }
