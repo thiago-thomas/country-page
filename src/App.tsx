@@ -173,7 +173,7 @@ function App() {
                 <th>
                   <span>Capital</span>
                 </th>
-                <th>
+                <th className="area-col">
                   <span>Area (km²)</span>
                 </th>
                 <th className="region-col">
@@ -196,7 +196,7 @@ function App() {
                   <td>
                     <span>{country.capital?.[0] || '(no capital)'}</span>
                   </td>
-                  <td>
+                  <td className="area-col">
                     <span>{country.area}</span>
                   </td>
                   <td className="region-col">

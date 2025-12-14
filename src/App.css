@@ -142,7 +142,7 @@ input {
 
 table.app__country-grid-container {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   width: 100%;
   border-collapse: separate;
 
@@ -170,8 +170,19 @@ table.app__country-grid-container {
     font-size: 1.2rem;
   }
 
+  .area-col,
   .region-col {
     display: none;
+  }
+}
+
+@media (min-width: 430px) {
+  table.app__country-grid-container {
+    grid-template-columns: repeat(4, 1fr);
+
+    .area-col {
+      display: flex;
+    }
   }
 }
 
