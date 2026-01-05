@@ -19,6 +19,7 @@ header.layout__header {
 
 main.layout__main {
   margin-top: -80px;
+  margin-bottom: 100px;
   margin-inline: 16px;
 
   padding: 16px;
@@ -26,4 +27,10 @@ main.layout__main {
   background-color: var(--black-primary);
   border: 1px solid #393b3f;
   border-radius: 8px;
+}
+
+@media (min-width: 1024px) {
+  main.layout__main {
+    margin-inline: 32px;
+  }
 }
