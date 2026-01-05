@@ -14,7 +14,7 @@
 
 This is a responsive single-page application that lists countries and provides search, sorting and filtering capabilities. The app fetches country data (JSON) from the open dataset maintained at mledoze/countries and displays flags via FlagCDN. It was built as part of the DevChallenges "Country Page - WorldRanks" challenge.
 
-![screenshot](./src/assets/hero-image.jpg)
+![screenshot](./public/Desktop_1350px.jpg)
 
 ---
 
@@ -98,17 +98,3 @@ Notes:
 - mledoze for the countries dataset.
 - FlagCDN for flag images.
 
----
-
-## Author / Contact ✉️
-
-Please replace the placeholders below with your real contact details.
-
-- **Name**: Your Name
-- **Website**: https://your-website.example
-- **GitHub**: https://github.com/your-username
-- **Email**: your-email@example.com
-
----
-
-If you'd like, I can also add a live demo link, improve screenshots, or add a short GIF demonstrating the filtering/sorting interactions — tell me which you'd prefer and I’ll add it. ✨
