@@ -1,7 +1,8 @@
 header.country-header {
   text-align: center;
-  
-  h1, p {
+
+  h1,
+  p {
     margin: 0;
     line-height: 1;
   }
@@ -15,8 +16,6 @@ header.country-header {
   h1 {
     margin-bottom: 8px;
   }
-
-
 }
 
 .country-header-main-info {

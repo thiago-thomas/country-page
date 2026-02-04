@@ -87,6 +87,7 @@ npm run preview
 ```
 
 Notes:
+
 - The app fetches data from: `https://raw.githubusercontent.com/mledoze/countries/master/countries.json` (see `src/services/api.ts`).
 - Flags are loaded from FlagCDN using the country's `cca2` code.
 
@@ -97,4 +98,3 @@ Notes:
 - DevChallenges for the challenge brief and inspiration.
 - mledoze for the countries dataset.
 - FlagCDN for flag images.
-
