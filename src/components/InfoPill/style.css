@@ -1,0 +1,16 @@
+.infopill {
+  background-color: #282B30;
+  display: inline-block;
+  padding: 8px 0;
+  border-radius: 12px;
+}
+
+.infopill__keyInfo,
+.infopill__valueInfo {
+  display: inline-block;
+  padding: 8px 20px;
+}
+
+.infopill__keyInfo {
+  border-right: 1px solid #1B1D1F;
+}

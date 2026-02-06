@@ -21,3 +21,10 @@ header.country-header {
 .country-header-main-info {
   margin-bottom: 24px;
 }
+
+.country-header-data {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  margin-bottom: 24px;
+}
