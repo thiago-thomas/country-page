@@ -33,7 +33,8 @@ ul.country-main-info-list {
   list-style: none;
   padding: 0;
   margin: 0;
-  
+  margin-bottom: 24px;
+
   li {
     display: flex;
     justify-content: space-between;
@@ -43,6 +44,41 @@ ul.country-main-info-list {
       border-bottom: 1px solid #393b3f;
     }
   }
+}
 
+.country-main-neighbouring {
+  padding-inline: 16px;
+  & > ul.country-main-neighbouring-list {
+    list-style: none;
+    margin: 0;
+    margin-block: 16px;
+    padding: 0;
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
 
+    &:has(.not-neighbouring) {
+      justify-content: center;
+    }
+
+    & > li {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+
+      &.not-neighbouring {
+        font-size: 14px;
+        font-style: italic;
+      }
+    }
+  }
+
+  img {
+    margin: 0;
+    border-radius: 8px;
+    width: 90px;
+    height: 60px;
+  }
 }

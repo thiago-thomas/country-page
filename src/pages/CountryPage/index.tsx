@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { fetchCountryByName } from '../../services/api';
+import { fetchCountriesByCca3, fetchCountryByName } from '../../services/api';
 import type { Country } from '../../types/api';
 import { InfoPill } from '../../components/InfoPill';
 import './style.css';
@@ -9,6 +9,7 @@ export function CountryPage() {
   const { name } = useParams<{ name: string }>();
   const navigate = useNavigate();
   const [country, setCountry] = useState<Country | null>(null);
+  const [neighbouringCountries, setNeighbouringCountries] = useState<Country[]>([]);
 
   useEffect(() => {
     async function getCountryByName(countryName: string) {
@@ -29,18 +30,34 @@ export function CountryPage() {
     }
   }, []);
 
+  useEffect(() => {
+    async function getNeighbouringCountries(country: Country) {
+      try {
+        const countries = await fetchCountriesByCca3(country.borders);
+        setNeighbouringCountries(countries);
+      } catch (err) {
+        console.error(err);
+      }
+    }
+    if (country) {
+      getNeighbouringCountries(country);
+    }
+  }, [country]);
+
   if (!country) {
     navigate('/');
     return null;
+  } else {
+    console.log(neighbouringCountries);
   }
 
-  const languagesContent = Object.entries(country.languages).map(([, name]) => (
-    `${name}`
-  )).join(', ');
+  const languagesContent = Object.entries(country.languages)
+    .map(([, name]) => `${name}`)
+    .join(', ');
 
-  const currenciesContent = Object.entries(country.currencies).map(([, details]) => (
-    `${details.name}`
-  )).join(', ');
+  const currenciesContent = Object.entries(country.currencies)
+    .map(([, details]) => `${details.name}`)
+    .join(', ');
 
   return (
     <>
@@ -81,6 +98,26 @@ export function CountryPage() {
             <span className="country-info-value">{country.region}</span>
           </li>
         </ul>
+        <div className="country-main-neighbouring">
+          <span>Neighbouring Countries</span>
+          <ul className="country-main-neighbouring-list">
+            {neighbouringCountries?.length ? (
+              neighbouringCountries.map(country => (
+                <li>
+                  <img
+                    src={`https://flagcdn.com/h60/${country.cca2.toLowerCase()}.png`}
+                    alt={`Flag of ${country.name.common}`}
+                  />
+                  <span>{country.name.common}</span>
+                </li>
+              ))
+            ) : (
+              <li className="not-neighbouring">
+                <span>This country has no neighbors.</span>
+              </li>
+            )}
+          </ul>
+        </div>
       </main>
     </>
   );

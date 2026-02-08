@@ -5,6 +5,7 @@ export interface Country {
   };
   capital: string[];
   cca2: string;
+  cca3: string;
   area: number;
   subregion: string;
   region: string;
@@ -17,6 +18,7 @@ export interface Country {
     [currencyCode: string]: {
       name: string;
       symbol: string;
-    }
+    };
   };
+  borders: string[];
 }
