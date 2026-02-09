@@ -3,8 +3,7 @@
 > Solution for the **Country Page - WorldRanks** challenge from [devChallenges.io](https://devchallenges.io/challenge/country-page).
 
 <div align="center">
-  <a href="{https://your-demo-link.your-domain}">Demo</a> •
-  <a href="{https://your-url-to-the-solution}">Solution</a> •
+  <a href="https://country-page-thiago-thomas.netlify.app/">Demo</a> •
   <a href="https://devchallenges.io/challenge/country-page">Challenge</a>
 </div>
 
