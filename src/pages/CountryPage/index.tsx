@@ -71,7 +71,7 @@ export function CountryPage() {
           <p>{country.name.official}</p>
         </div>
         <div className="country-header-data">
-          <InfoPill keyInfo="Population" valueInfo="N/A" />
+          <InfoPill keyInfo="Native Country Name" valueInfo={Object.values(country.name.native)[0]?.common} />
           <InfoPill keyInfo="Area(km²)" valueInfo={country.area.toString()} />
         </div>
       </header>

@@ -1,7 +1,7 @@
 import type { Country } from '../types/api';
 
 const API_URL = 'https://raw.githubusercontent.com/mledoze/countries/master/countries.json';
-//const API2_URL = 'https://restcountries.com/v3.1/alpha/'
+//const API_URL = 'https://restcountries.com/v3.1/all?fields=name,capital,cca2,cca3,area,subregion,region,independent,unMember,languages,currencies,borders,population';
 
 export async function fetchCountriesByPopulation() {
   try {
